@@ -27,6 +27,10 @@ CULane dataset is available in <https://xingangpan.github.io/projects/CULane.htm
 
 Lane Reconstruction
 -------------------
+```bash
+cd UDLR
+```
+
 train
 ```bash
 python3 main.py --mode = train
