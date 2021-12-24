@@ -308,7 +308,7 @@ class Painting:
                 img = img.permute(0,2,3,1).squeeze().cpu().numpy()*255
                 lane_img = np.zeros_like(img)
 
-                color = np.array([[255, 125, 0], [0, 255, 0], [0, 0, 255], [0, 255, 255]], dtype='uint8')
+                color = np.array([[255, 255, 255], [255, 255, 255], [255, 255, 255], [255, 255, 255]], dtype='uint8')
 
                 coord_mask = np.argmax(seg_pred[i], axis=0)
                 for j in range(0, 4):
@@ -321,7 +321,6 @@ class Painting:
                             # cv2.FONT_HERSHEY_SIMPLEX, 1.1, (255, 255, 255), 2)
                 print("Inference time: ", time.time() - start)
                 cv2.imwrite(os.path.join(image_output_path, image_name), lane_img)
-                cv2.imwrite(os.path.join(udlr_output_path, image_name), img)
                 # cv2.imwrite(os.path.join('painted', image_name), output_image)
                 
                 # cv2.imwrite(result_lane_path, lane_img)
