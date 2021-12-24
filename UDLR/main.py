@@ -46,12 +46,8 @@ def main():
     torch.manual_seed(opt.seed)
     torch.cuda.manual_seed(opt.seed)
 
-    # path = '/home/jskang/CULane'
-    # path = '/home/jisukang/LaneDetection/CULane'
-    path_list = ['/home/hwansoo/Dataset/CULane']
-    # path_list = ['./rgb']
-    path = '/home/hwansoo/hdd/Dataset/CULane'
-
+    path = '../CULane'
+    mode = opt.mode
     # ------------ train data ------------
     # # CULane mean, std
     # mean = (0.3598, 0.3653, 0.3662)
@@ -60,21 +56,17 @@ def main():
     # Normalize(mean=mean, std=std))
     # train_set = CULane(path, 'train', (800, 288))
     # test_set = CULane(path, 'test', (800, 288))
-    mode_list = ['test']
+    train_set = CULane(path, 'train', transform)
+    test_set = CULane(path, 'test', transform)
+    model = Painting(model_path=opt.model_path, results_folder=opt.results_folder, lr=opt.lr, loss_type=opt.type, lane_model=opt.lane_model, old_model=opt.old_model, device=device)
 
-    for mode in mode_list:
-
-        test_set = Carla(path, (800, 288))
-        test_set = CULane(path, mode, transform)
-        model = Painting(model_path=opt.model_path, results_folder=opt.results_folder, lr=opt.lr, loss_type=opt.type, lane_model=opt.lane_model, old_model=opt.old_model, device=device)
-
-        if opt.mode == 'train':
-            model.train(train_set, opt.batch_size, opt.epochs, use_kd, use_guidance)
-            # print("train")
-        elif opt.mode == 'test':
-            model.test(test_set, 1, opt.output_folder)
-        else:
-            print("You can choose only train or test")
+    if opt.mode == 'train':
+        model.train(train_set, opt.batch_size, opt.epochs, use_kd, use_guidance)
+        # print("train")
+    elif opt.mode == 'test':
+        model.test(test_set, 1, opt.output_folder)
+    else:
+        print("You can choose only train or test")
 
 
 if __name__ == '__main__':
