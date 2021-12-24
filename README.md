@@ -17,7 +17,7 @@ This implementation uses ENet-SAD model as segmentation module.
 
 #### Dependencies
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 #### Datasets
@@ -27,7 +27,15 @@ CULane dataset is available in <https://xingangpan.github.io/projects/CULane.htm
 
 Lane Reconstruction
 -------------------
-TBU
+train
+```bash
+python3 main.py --mode = train
+```
+
+test
+```bash
+python3 main.py --mode = test
+```
 
 
 Lane Restoration
